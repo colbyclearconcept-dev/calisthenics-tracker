@@ -1,26 +1,21 @@
-# GitHub Pages setup from iPhone/iPad
+# PT Tracker v2
 
-This folder is a Progressive Web App version of the calisthenics tracker.
+Upload/replace these files in your existing GitHub repository:
 
-## Steps
+- index.html
+- manifest.json
+- service-worker.js
+- icon-192.png
+- icon-512.png
 
-1. Create or sign into a GitHub account.
-2. Create a new repository named:
-   calisthenics-tracker
-3. Upload these 5 files to the repository:
-   - index.html
-   - manifest.json
-   - service-worker.js
-   - icon-192.png
-   - icon-512.png
-4. In GitHub, open:
-   Settings → Pages
-5. Under "Build and deployment":
-   - Source: Deploy from a branch
-   - Branch: main
-   - Folder: / root
-6. Save.
-7. Wait a minute, then open the GitHub Pages link in Safari.
-8. Tap Share → Add to Home Screen.
+Then wait 1-2 minutes and refresh your installed Home Screen app.
 
-Your app data saves locally on the device where you use it.
+New features:
+- 15-minute guided workout timer
+- Timer phases: warmup, strength circuit, flexibility
+- Exercise form guide with illustrations
+- Military challenge mode
+- Existing progress logging, streaks, PRs, history, and CSV export
+
+Important:
+Your existing workout data should stay saved on your device because the app still uses the same localStorage key.

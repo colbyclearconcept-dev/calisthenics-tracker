@@ -1,291 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>15-Minute Calisthenics Tracker</title>
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#3f4d2f">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="PT Tracker">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="apple-touch-icon" href="icon-192.png">
-  <style>
-    :root {
-      --bg: #f4f5ef;
-      --card: #ffffff;
-      --ink: #1f261b;
-      --muted: #66705b;
-      --accent: #3f4d2f;
-      --accent2: #d9dfc8;
-      --danger: #9b3d2e;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      padding: max(14px, env(safe-area-inset-top)) 14px max(14px, env(safe-area-inset-bottom));
-    }
-    .app { max-width: 720px; margin: 0 auto; }
-    h1 { margin: 0; font-size: 1.75rem; letter-spacing: -0.03em; }
-    h2 { margin-top: 0; }
-    .subtitle { color: var(--muted); margin: 4px 0 18px; }
-    .card {
-      background: var(--card);
-      border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 14px;
-      box-shadow: 0 3px 16px rgba(0,0,0,0.08);
-    }
-    .mission {
-      background: var(--accent);
-      color: white;
-      text-align: center;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.04em;
-    }
-    label { display: block; font-weight: 700; margin: 12px 0 6px; }
-    input, textarea, select {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #d4d8ca;
-      border-radius: 12px;
-      font-size: 1rem;
-      background: #fff;
-    }
-    textarea { min-height: 70px; }
-    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-    .exercise {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px;
-      border-radius: 12px;
-      background: #f7f8f2;
-      margin: 8px 0;
-    }
-    .exercise input { width: 22px; height: 22px; }
-    button {
-      border: 0;
-      border-radius: 14px;
-      padding: 13px 14px;
-      font-size: 1rem;
-      font-weight: 800;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 10px;
-    }
-    .primary { background: var(--accent); color: white; }
-    .secondary { background: var(--accent2); color: var(--ink); }
-    .danger { background: #f2d5cf; color: var(--danger); }
-    .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; text-align: center; }
-    .stat { background: #f7f8f2; border-radius: 14px; padding: 12px 8px; }
-    .stat strong { display: block; font-size: 1.35rem; }
-    .history-item { border-bottom: 1px solid #e5e7dc; padding: 10px 0; font-size: 0.95rem; }
-    .history-item:last-child { border-bottom: 0; }
-    .small { font-size: 0.85rem; color: var(--muted); }
-    .routine-list { padding-left: 20px; line-height: 1.55; }
-    .pill {
-      display: inline-block;
-      background: var(--accent2);
-      padding: 4px 9px;
-      border-radius: 999px;
-      font-size: 0.8rem;
-      font-weight: 700;
-      margin-top: 4px;
-    }
-    .install {
-      background: #fff8dc;
-      border: 1px solid #eadc9d;
-      color: #5c4a11;
-    }
-    @media (max-width: 520px) {
-      .grid, .stats { grid-template-columns: 1fr; }
-      h1 { font-size: 1.5rem; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>15-Minute PT Tracker</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2f3b24">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="PT Tracker">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="icon-192.png">
+<style>
+:root{--bg:#11150f;--card:#f7f8f2;--ink:#1f261b;--muted:#66705b;--accent:#3f4d2f;--accent2:#d9dfc8;--danger:#9b3d2e}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);padding:max(12px,env(safe-area-inset-top)) 12px max(16px,env(safe-area-inset-bottom))}
+.app{max-width:760px;margin:0 auto}.hero{color:white;padding:12px 4px 18px}h1{margin:0;font-size:1.7rem;letter-spacing:-.03em}.subtitle{color:#c9d1bd;margin:4px 0 0}
+.tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;position:sticky;top:0;background:var(--bg);padding:6px 0 10px;z-index:10}
+.tab{background:#27301f;color:white;border:1px solid #46543a;border-radius:12px;padding:10px 6px;font-weight:800;font-size:.85rem}.tab.active{background:var(--accent2);color:#1f261b}
+.card{background:var(--card);border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:0 3px 16px rgba(0,0,0,.18)}.mission{background:var(--accent);color:white;text-align:center;font-weight:900;text-transform:uppercase;letter-spacing:.04em}
+label{display:block;font-weight:800;margin:12px 0 6px}input,textarea,select{width:100%;padding:12px;border:1px solid #d4d8ca;border-radius:12px;font-size:1rem;background:#fff}textarea{min-height:70px}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.exercise{display:flex;align-items:center;gap:10px;padding:10px;border-radius:12px;background:#fff;margin:8px 0}.exercise input{width:22px;height:22px}
+button{border:0;border-radius:14px;padding:13px 14px;font-size:1rem;font-weight:900;cursor:pointer;width:100%;margin-top:10px}.primary{background:var(--accent);color:white}.secondary{background:var(--accent2);color:var(--ink)}.danger{background:#f2d5cf;color:var(--danger)}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;text-align:center}.stat{background:#fff;border-radius:14px;padding:12px 8px}.stat strong{display:block;font-size:1.35rem}
+.small{font-size:.85rem;color:var(--muted)}.hidden{display:none}.timer{text-align:center}.time{font-variant-numeric:tabular-nums;font-size:4rem;font-weight:900;letter-spacing:-.05em}.phase{font-size:1.4rem;font-weight:900}.progressbar{height:14px;background:#dfe4d3;border-radius:999px;overflow:hidden}.progressbar div{height:100%;background:var(--accent);width:0%}
+.form-card{display:grid;grid-template-columns:92px 1fr;gap:12px;align-items:center}.draw{width:92px;height:72px;background:white;border-radius:12px;border:1px solid #dfe4d3}.history-item{border-bottom:1px solid #dfe7dc;padding:10px 0;font-size:.95rem}.history-item:last-child{border-bottom:0}
+.badge{display:inline-block;background:var(--accent2);border-radius:999px;padding:4px 9px;font-size:.78rem;font-weight:900;margin:3px}.routine-list{padding-left:20px;line-height:1.55}
+@media(max-width:520px){.grid,.stats{grid-template-columns:1fr}.time{font-size:3.2rem}.form-card{grid-template-columns:1fr}.draw{width:100%;height:110px}.tabs{grid-template-columns:repeat(4,1fr)}}
+</style>
 </head>
 <body>
-  <div class="app">
-    <h1>15-Minute Calisthenics Tracker</h1>
-    <p class="subtitle">Build strength. Improve flexibility. Show up every day.</p>
+<div class="app">
+ <div class="hero"><h1>15-Minute PT Tracker</h1><p class="subtitle">Strength. Flexibility. Discipline. Daily.</p></div>
+ <div class="tabs">
+  <button class="tab active" onclick="showTab('timer',this)">Timer</button>
+  <button class="tab" onclick="showTab('today',this)">Log</button>
+  <button class="tab" onclick="showTab('form',this)">Form</button>
+  <button class="tab" onclick="showTab('progress',this)">Progress</button>
+ </div>
 
-    <div class="card mission">The mission: 15 minutes is enough.</div>
-
-    <div class="card install">
-      <strong>Install on iPhone/iPad:</strong><br>
-      Open this site in Safari → Share button → Add to Home Screen.
-    </div>
-
-    <div class="card">
-      <h2>Today’s Workout</h2>
-      <p class="small" id="todayLabel"></p>
-
-      <label>Completed exercises</label>
-      <div class="exercise"><input type="checkbox" id="pushupsDone"><span>Push-ups</span></div>
-      <div class="exercise"><input type="checkbox" id="squatsDone"><span>Bodyweight squats</span></div>
-      <div class="exercise"><input type="checkbox" id="plankDone"><span>Plank</span></div>
-      <div class="exercise"><input type="checkbox" id="lungesDone"><span>Reverse lunges</span></div>
-      <div class="exercise"><input type="checkbox" id="rowsDone"><span>Rows / Superman hold</span></div>
-      <div class="exercise"><input type="checkbox" id="stretchDone"><span>Flexibility</span></div>
-
-      <div class="grid">
-        <div><label>Push-ups</label><input type="number" id="pushups" min="0" placeholder="e.g. 15"></div>
-        <div><label>Squats</label><input type="number" id="squats" min="0" placeholder="e.g. 20"></div>
-        <div><label>Plank seconds</label><input type="number" id="plank" min="0" placeholder="e.g. 45"></div>
-        <div><label>Rounds</label><input type="number" id="rounds" min="0" step="0.5" placeholder="e.g. 2"></div>
-      </div>
-
-      <label>Effort level</label>
-      <select id="effort">
-        <option value="Easy">Easy</option>
-        <option value="Moderate" selected>Moderate</option>
-        <option value="Hard">Hard</option>
-        <option value="Too much">Too much</option>
-      </select>
-
-      <label>Notes</label>
-      <textarea id="notes" placeholder="Energy, pain, form, mood, anything worth remembering."></textarea>
-
-      <button class="primary" onclick="saveWorkout()">Save Today</button>
-      <button class="secondary" onclick="loadToday()">Reload Today</button>
-    </div>
-
-    <div class="card">
-      <h2>Progress</h2>
-      <div class="stats">
-        <div class="stat"><strong id="streak">0</strong><span>day streak</span></div>
-        <div class="stat"><strong id="totalDays">0</strong><span>days logged</span></div>
-        <div class="stat"><strong id="bestPlank">0</strong><span>best plank sec</span></div>
-      </div>
-      <p class="small" id="bestStats"></p>
-    </div>
-
-    <div class="card">
-      <h2>Routine Reminder</h2>
-      <ol class="routine-list">
-        <li><strong>0–2 min:</strong> arm circles, hip circles, cat-camel, air squats, shoulder rolls.</li>
-        <li><strong>2–12 min:</strong> push-ups, squats, plank, reverse lunges, rows.</li>
-        <li><strong>12–15 min:</strong> couch stretch, hamstrings, child’s pose, chest stretch.</li>
-      </ol>
-      <span class="pill">Quality reps &gt; rushed reps</span>
-    </div>
-
-    <div class="card">
-      <h2>History</h2>
-      <div id="history"></div>
-      <button class="secondary" onclick="exportCSV()">Export CSV</button>
-      <button class="danger" onclick="clearData()">Clear All Data</button>
-    </div>
+ <section id="timer" class="panel">
+  <div class="card mission">Guided 15-minute workout</div>
+  <div class="card timer">
+   <div class="phase" id="phaseName">Ready</div>
+   <p class="small" id="phaseDetail">Tap start and follow the commands.</p>
+   <div class="time" id="timeDisplay">15:00</div>
+   <div class="progressbar"><div id="bar"></div></div>
+   <button class="primary" onclick="startTimer()">Start</button>
+   <button class="secondary" onclick="pauseTimer()">Pause / Resume</button>
+   <button class="secondary" onclick="resetTimer()">Reset</button>
   </div>
+  <div class="card">
+   <h2>15-Minute Plan</h2>
+   <ol class="routine-list">
+    <li><b>0–2:</b> Dynamic warmup</li>
+    <li><b>2–12:</b> Push-ups, squats, plank, lunges, rows</li>
+    <li><b>12–15:</b> Flexibility cooldown</li>
+   </ol>
+  </div>
+ </section>
+
+ <section id="today" class="panel hidden">
+  <div class="card"><h2>Today’s Workout</h2><p class="small" id="todayLabel"></p>
+   <label>Completed exercises</label>
+   <div class="exercise"><input type="checkbox" id="pushupsDone"><span>Push-ups</span></div>
+   <div class="exercise"><input type="checkbox" id="squatsDone"><span>Bodyweight squats</span></div>
+   <div class="exercise"><input type="checkbox" id="plankDone"><span>Plank</span></div>
+   <div class="exercise"><input type="checkbox" id="lungesDone"><span>Reverse lunges</span></div>
+   <div class="exercise"><input type="checkbox" id="rowsDone"><span>Rows / Superman hold</span></div>
+   <div class="exercise"><input type="checkbox" id="stretchDone"><span>Flexibility</span></div>
+   <div class="grid">
+    <div><label>Push-ups</label><input type="number" id="pushups" min="0"></div>
+    <div><label>Squats</label><input type="number" id="squats" min="0"></div>
+    <div><label>Plank seconds</label><input type="number" id="plank" min="0"></div>
+    <div><label>Rounds</label><input type="number" id="rounds" min="0" step=".5"></div>
+   </div>
+   <label>Effort</label><select id="effort"><option>Easy</option><option selected>Moderate</option><option>Hard</option><option>Too much</option></select>
+   <label>Notes</label><textarea id="notes" placeholder="Energy, pain, form, mood..."></textarea>
+   <button class="primary" onclick="saveWorkout()">Save Today</button>
+  </div>
+  <div class="card"><h2>Military Challenge Mode</h2><p>For 15 minutes: 10 push-ups, 15 squats, 20-second plank. Repeat with perfect form. Record rounds.</p><span class="badge">1 day/week</span><span class="badge">Beat monthly PR</span></div>
+ </section>
+
+ <section id="form" class="panel hidden">
+  <div class="card"><h2>Exercise Form Guide</h2><p class="small">Tap each movement mentally before training. Quality reps beat rushed reps.</p></div>
+  <div id="formCards"></div>
+ </section>
+
+ <section id="progress" class="panel hidden">
+  <div class="card"><h2>Progress</h2><div class="stats"><div class="stat"><strong id="streak">0</strong><span>day streak</span></div><div class="stat"><strong id="totalDays">0</strong><span>days logged</span></div><div class="stat"><strong id="bestPlank">0</strong><span>best plank sec</span></div></div><p class="small" id="bestStats"></p></div>
+  <div class="card"><h2>History</h2><div id="history"></div><button class="secondary" onclick="exportCSV()">Export CSV</button><button class="danger" onclick="clearData()">Clear All Data</button></div>
+ </section>
+</div>
 
 <script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js");
-  });
-}
-
-const fields = ["pushupsDone","squatsDone","plankDone","lungesDone","rowsDone","stretchDone","pushups","squats","plank","rounds","effort","notes"];
-
-function todayKey() {
-  const d = new Date();
-  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-}
-function getData() { return JSON.parse(localStorage.getItem("calisthenicsTracker") || "{}"); }
-function setData(data) { localStorage.setItem("calisthenicsTracker", JSON.stringify(data)); }
-
-function saveWorkout() {
-  const data = getData();
-  const entry = { date: todayKey(), savedAt: new Date().toISOString() };
-  fields.forEach(id => {
-    const el = document.getElementById(id);
-    entry[id] = el.type === "checkbox" ? el.checked : el.value;
-  });
-  const checks = ["pushupsDone","squatsDone","plankDone","lungesDone","rowsDone","stretchDone"];
-  entry.completedCount = checks.filter(id => entry[id]).length;
-  data[todayKey()] = entry;
-  setData(data);
-  render();
-  alert("Workout saved. Good work.");
-}
-
-function loadToday() {
-  const entry = getData()[todayKey()];
-  fields.forEach(id => {
-    const el = document.getElementById(id);
-    if (!entry) {
-      if (el.type === "checkbox") el.checked = false;
-      else if (id !== "effort") el.value = "";
-      return;
-    }
-    if (el.type === "checkbox") el.checked = !!entry[id];
-    else el.value = entry[id] || (id === "effort" ? "Moderate" : "");
-  });
-}
-
-function calculateStreak(keys) {
-  let streak = 0;
-  let d = new Date();
-  while (true) {
-    const key = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
-    if (keys.includes(key)) {
-      streak++;
-      d.setDate(d.getDate() - 1);
-    } else break;
-  }
-  return streak;
-}
-
-function escapeHTML(str) {
-  return String(str).replace(/[&<>"']/g, s => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;" }[s]));
-}
-
-function render() {
-  document.getElementById("todayLabel").textContent = new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric", year: "numeric" });
-  const entries = Object.values(getData()).sort((a,b) => b.date.localeCompare(a.date));
-  const keys = entries.map(e => e.date);
-  document.getElementById("streak").textContent = calculateStreak(keys);
-  document.getElementById("totalDays").textContent = entries.length;
-  const bestPushups = Math.max(0, ...entries.map(e => Number(e.pushups) || 0));
-  const bestSquats = Math.max(0, ...entries.map(e => Number(e.squats) || 0));
-  const bestPlank = Math.max(0, ...entries.map(e => Number(e.plank) || 0));
-  document.getElementById("bestPlank").textContent = bestPlank;
-  document.getElementById("bestStats").textContent = `Best push-ups: ${bestPushups} | Best squats: ${bestSquats} | Best plank: ${bestPlank} sec`;
-  document.getElementById("history").innerHTML = entries.length ? entries.slice(0, 30).map(e => `
-    <div class="history-item">
-      <strong>${e.date}</strong> — ${e.completedCount || 0}/6 completed<br>
-      Push-ups: ${e.pushups || 0}, Squats: ${e.squats || 0}, Plank: ${e.plank || 0}s, Rounds: ${e.rounds || 0}<br>
-      <span class="small">Effort: ${e.effort || "—"}${e.notes ? " | " + escapeHTML(e.notes) : ""}</span>
-    </div>`).join("") : `<p class="small">No workouts logged yet.</p>`;
-}
-
-function exportCSV() {
-  const entries = Object.values(getData()).sort((a,b) => a.date.localeCompare(b.date));
-  const headers = ["date","completedCount","pushups","squats","plank","rounds","effort","notes"];
-  const rows = [headers.join(",")].concat(entries.map(e => headers.map(h => `"${String(e[h] || "").replaceAll('"','""')}"`).join(",")));
-  const blob = new Blob([rows.join("\n")], { type: "text/csv" });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement("a");
-  a.href = url;
-  a.download = "calisthenics-progress.csv";
-  a.click();
-  URL.revokeObjectURL(url);
-}
-
-function clearData() {
-  if (confirm("Clear all saved workout data?")) {
-    localStorage.removeItem("calisthenicsTracker");
-    loadToday();
-    render();
-  }
-}
-
-loadToday();
-render();
+if("serviceWorker"in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./service-worker.js"))}
+const phases=[
+ {name:"Warmup",detail:"Arm circles, hip circles, cat-camel, air squats, shoulder rolls.",end:120},
+ {name:"Strength Circuit",detail:"Push-ups, squats, plank, reverse lunges, rows. Quality rounds.",end:720},
+ {name:"Flexibility",detail:"Couch stretch, hamstrings, child’s pose, chest/shoulder stretch.",end:900}
+];
+let total=900, remaining=900, interval=null, paused=false;
+function fmt(s){let m=Math.floor(s/60), r=s%60;return `${m}:${String(r).padStart(2,"0")}`}
+function updateTimer(){document.getElementById("timeDisplay").textContent=fmt(remaining);let elapsed=total-remaining;document.getElementById("bar").style.width=(elapsed/total*100)+"%";let p=phases.find(x=>elapsed<x.end)||phases[2];document.getElementById("phaseName").textContent=p.name;document.getElementById("phaseDetail").textContent=p.detail}
+function startTimer(){if(interval)return;paused=false;interval=setInterval(()=>{if(!paused){remaining--;updateTimer();if(remaining<=0){clearInterval(interval);interval=null;remaining=0;updateTimer();document.getElementById("phaseName").textContent="Complete";document.getElementById("phaseDetail").textContent="Log the workout. Mission accomplished.";}}},1000)}
+function pauseTimer(){if(interval)paused=!paused}
+function resetTimer(){clearInterval(interval);interval=null;remaining=900;paused=false;updateTimer()}
+function showTab(id,btn){document.querySelectorAll(".panel").forEach(p=>p.classList.add("hidden"));document.getElementById(id).classList.remove("hidden");document.querySelectorAll(".tab").forEach(t=>t.classList.remove("active"));btn.classList.add("active");render()}
+const form=[
+ ["Push-ups","Straight line head to heels. Hands slightly wider than shoulders. Chest lowers under control. Full lockout at top.","pushup"],
+ ["Squats","Feet shoulder-width. Sit hips back and down. Chest up. Knees track over toes.","squat"],
+ ["Plank","Forearms under shoulders. Body straight. Glutes tight. Don’t sag.","plank"],
+ ["Reverse lunges","Step back. Lower hips straight down. Front knee over ankle. Push through front heel.","lunge"],
+ ["Rows","Body straight. Pull chest to hands. Squeeze shoulder blades. Control the lowering.","row"],
+ ["Flexibility","Breathe slowly. No bouncing. Hold mild tension, not sharp pain.","stretch"]
+];
+function svg(type){return `<svg class="draw" viewBox="0 0 120 90"><g stroke="#1f261b" stroke-width="5" stroke-linecap="round" fill="none"><circle cx="78" cy="22" r="8" fill="#d9dfc8" stroke="#1f261b"/>${
+ type=="pushup"?'<line x1="25" y1="62" x2="78" y2="35"/><line x1="78" y1="35" x2="100" y2="60"/><line x1="70" y1="40" x2="88" y2="62"/><line x1="25" y1="62" x2="12" y2="70"/><line x1="100" y1="60" x2="110" y2="60"/>':
+ type=="squat"?'<line x1="78" y1="31" x2="68" y2="50"/><line x1="68" y1="50" x2="46" y2="52"/><line x1="68" y1="50" x2="76" y2="75"/><line x1="46" y1="52" x2="40" y2="76"/><line x1="58" y1="36" x2="32" y2="36"/><line x1="58" y1="36" x2="86" y2="38"/>':
+ type=="plank"?'<line x1="25" y1="58" x2="78" y2="35"/><line x1="78" y1="35" x2="94" y2="58"/><line x1="75" y1="40" x2="70" y2="62"/><line x1="70" y1="62" x2="90" y2="62"/><line x1="25" y1="58" x2="12" y2="68"/>':
+ type=="lunge"?'<line x1="78" y1="31" x2="70" y2="50"/><line x1="70" y1="50" x2="90" y2="70"/><line x1="90" y1="70" x2="108" y2="70"/><line x1="70" y1="50" x2="48" y2="70"/><line x1="48" y1="70" x2="30" y2="70"/>':
+ type=="row"?'<line x1="20" y1="25" x2="100" y2="25"/><line x1="35" y1="25" x2="60" y2="60"/><line x1="60" y1="60" x2="82" y2="35"/><line x1="60" y1="60" x2="35" y2="72"/><line x1="82" y1="35" x2="82" y2="25"/>':
+ '<line x1="78" y1="31" x2="62" y2="52"/><line x1="62" y1="52" x2="38" y2="72"/><line x1="62" y1="52" x2="90" y2="72"/><line x1="56" y1="42" x2="30" y2="55"/><line x1="56" y1="42" x2="90" y2="45"/>'
+}</g></svg>`}
+document.getElementById("formCards").innerHTML=form.map(x=>`<div class="card form-card">${svg(x[2])}<div><h3>${x[0]}</h3><p>${x[1]}</p></div></div>`).join("");
+const fields=["pushupsDone","squatsDone","plankDone","lungesDone","rowsDone","stretchDone","pushups","squats","plank","rounds","effort","notes"];
+function todayKey(){const d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`}
+function getData(){return JSON.parse(localStorage.getItem("calisthenicsTracker")||"{}")}function setData(d){localStorage.setItem("calisthenicsTracker",JSON.stringify(d))}
+function saveWorkout(){const data=getData(), entry={date:todayKey(),savedAt:new Date().toISOString()};fields.forEach(id=>{let el=document.getElementById(id);entry[id]=el.type==="checkbox"?el.checked:el.value});let checks=["pushupsDone","squatsDone","plankDone","lungesDone","rowsDone","stretchDone"];entry.completedCount=checks.filter(id=>entry[id]).length;data[todayKey()]=entry;setData(data);render();alert("Workout saved. Good work.")}
+function loadToday(){const e=getData()[todayKey()];fields.forEach(id=>{let el=document.getElementById(id);if(!e){if(el.type==="checkbox")el.checked=false;else if(id!=="effort")el.value="";return}if(el.type==="checkbox")el.checked=!!e[id];else el.value=e[id]||(id==="effort"?"Moderate":"")})}
+function calculateStreak(keys){let s=0,d=new Date();while(true){let k=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;if(keys.includes(k)){s++;d.setDate(d.getDate()-1)}else break}return s}
+function escapeHTML(str){return String(str).replace(/[&<>"']/g,s=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[s]))}
+function render(){document.getElementById("todayLabel").textContent=new Date().toLocaleDateString(undefined,{weekday:"long",month:"long",day:"numeric",year:"numeric"});const entries=Object.values(getData()).sort((a,b)=>b.date.localeCompare(a.date));const keys=entries.map(e=>e.date);document.getElementById("streak").textContent=calculateStreak(keys);document.getElementById("totalDays").textContent=entries.length;const bp=Math.max(0,...entries.map(e=>Number(e.pushups)||0)),bs=Math.max(0,...entries.map(e=>Number(e.squats)||0)),bpl=Math.max(0,...entries.map(e=>Number(e.plank)||0));document.getElementById("bestPlank").textContent=bpl;document.getElementById("bestStats").textContent=`Best push-ups: ${bp} | Best squats: ${bs} | Best plank: ${bpl} sec`;document.getElementById("history").innerHTML=entries.length?entries.slice(0,30).map(e=>`<div class="history-item"><strong>${e.date}</strong> — ${e.completedCount||0}/6 completed<br>Push-ups: ${e.pushups||0}, Squats: ${e.squats||0}, Plank: ${e.plank||0}s, Rounds: ${e.rounds||0}<br><span class="small">Effort: ${e.effort||"—"}${e.notes?" | "+escapeHTML(e.notes):""}</span></div>`).join(""):`<p class="small">No workouts logged yet.</p>`}
+function exportCSV(){const entries=Object.values(getData()).sort((a,b)=>a.date.localeCompare(b.date));const headers=["date","completedCount","pushups","squats","plank","rounds","effort","notes"];const rows=[headers.join(",")].concat(entries.map(e=>headers.map(h=>`"${String(e[h]||"").replaceAll('"','""')}"`).join(",")));const blob=new Blob([rows.join("\n")],{type:"text/csv"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download="calisthenics-progress.csv";a.click();URL.revokeObjectURL(url)}
+function clearData(){if(confirm("Clear all saved workout data?")){localStorage.removeItem("calisthenicsTracker");loadToday();render()}}
+loadToday();render();updateTimer();
 </script>
 </body>
 </html>
